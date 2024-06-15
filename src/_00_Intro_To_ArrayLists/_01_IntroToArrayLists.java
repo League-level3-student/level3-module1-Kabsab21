@@ -38,11 +38,15 @@ for( int i = words.size()-1; i >=0 ; i--) {
         // 7. Print only the Strings that have the letter 'e' in them.
 System.out.println( "NEW LOOP");
     for( String i : words) {
-    	System.out.println(i);
-    	
-    	
+String e = "e";
+    	if(i.contains(e) ==  true) {
+    		System.out.println(i);
+    	}
+  	
     }
+    
+    
+   }
 }
-    }
     
 
