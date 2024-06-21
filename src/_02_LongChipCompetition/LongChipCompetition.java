@@ -21,19 +21,35 @@ public class LongChipCompetition {
     }
     
     private void LongestChip() {
-        
+    ArrayList<Double> chlong = new ArrayList<Double>();
+    int lcb = 0;
+    double longestChipLength = 0;
+    			
     	for( int i = 0; i < theBeatles.size(); i++) {
+    		
     			System.out.println(theBeatles.get(i).getName()+" has "+theBeatles.get(i).getChips().size()+" chips");
-    			ArrayList<Chip> longestChips = new ArrayList<Chip>();
+    			
+    			
     		for( int j = 0; j < theBeatles.get(i).getChips().size(); j++) {
-    			if(theBeatles.get(i).getChips().get(j).getLength() > theBeatles.get(i).getChips().get(j -1).getLength() ) {
-    				longestChips.add((theBeatles.get(i).getChips().get(j)));
+    			
+    			if(theBeatles.get(i).getChips().get(j).getLength() > longestChipLength ) {
+    				longestChipLength = theBeatles.get(i).getChips().get(j).getLength();
+    				lcb = i;
     			}
-    			theBeatles.get(i).getChips().get(j).getLength();
-    			System.out.println(theBeatles.get(i).getName()+" chip length is "+theBeatles.get(i).getChips().get(j).getLength());
-    		}
+    		
+    		//	System.out.println(theBeatles.get(i).getName()+" chip long "+longestChipLength);
+    			
+    		}	
+    		System.out.println(theBeatles.get(i).getName()+"'s longest chip has a length of "+longestChipLength);
+    		
+    		chlong.add(longestChipLength);	
+    		
     	}
-    }
+    	System.out.println(" The beatle with the longest chip length is "+theBeatles.get(lcb).getName());
+    	
+    
+    	}
+    
 
     private void initializeBeatles() {
         Beatle george = new Beatle("George");
@@ -61,7 +77,8 @@ class Beatle {
     }
 
     private void initializePlateOfChips() {
-        int numberOfChips = new Random().nextInt(100);
+       int numberOfChips = new Random().nextInt(100);
+    	
         for (int i = 0; i < numberOfChips; i++) {
             chips.add(new Chip(new Random().nextDouble() * 10));
         }
