@@ -23,9 +23,15 @@ public class ArrayListRemove {
     // 1. Write a method that removes the dirt in the yard and returns the
     //    ArrayList
     public static ArrayList<Stuff> cleanOutTheYard( ArrayList<Stuff> yard ) {
-        for(int i = 0; i <  yard.size(); i++) {
-        	if( yard.get(i).type == "dirt") {
+    System.out.println(yard.size());
+        for(int i = 0; i  <  yard.size(); i++) {
+        	
+        	System.out.println("erm this is the index "+i);
+        	System.out.println("Type is " + yard.get(i).type);
+        	if( yard.get(i).type.equals( "dirt")) {
+        		System.out.println(i+" removed");
         		yard.remove(i);
+        		i--;
         	}
         	
         }
