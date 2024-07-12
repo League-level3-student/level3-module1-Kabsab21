@@ -9,9 +9,12 @@ import processing.core.PApplet;
  * see final image and what each step should look like.
  */
 public class RetroSun extends PApplet {
+	 
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
-
+ float y = WIDTH/2;
+ float h = 40;
+ float w = 2 * 500;
     // RGB colors
     int[] sunColors = {
             color(212, 202, 11), color(214, 198, 30), color(211, 170, 26),
@@ -38,7 +41,16 @@ public class RetroSun extends PApplet {
         /*
          * PART 1: Drawing the sun
          */
-
+    	if( y == 100) {
+    		y = WIDTH/2;
+    	}
+    	y=y-1;
+    	
+    	if( h == 0) {
+    		h = 40;
+    	}
+    	h=h-1;
+    	
         // Draw an ellipse for the sun in the center of the window
         // Use fill(sunColors[0]) to make it yellow
         // Use noStroke() to remove the black outline
@@ -61,14 +73,21 @@ public class RetroSun extends PApplet {
     	loadPixels();
         // We want to change the color of our sun so use an if statement
         // to check if the pixel is the color of the yellow circle.
-    	for( int i = 0; i > pixels.length; i++) {
+    	for( int i = 0; i < pixels.length; i++) {
+    		 
         // If pixel[i] is the same color as the color of our circle (sunColors[0]),
         // we need to map the pixel to a color in our sunColors[] array
         // (see 2nd gradient image in RetroSun.html)
     	if(pixels[i] == sunColors[0]) {
     		
-    	}
+    		 int y = i / width;
+  	       float step = map(y, 50, 550, 0, 1);
+    	
+  	 pixels[i] = interpolateColor(sunColors, step);
+    		
+    	} 
    	}
+    	updatePixels();
         // The top of the sun is yellow (sunColors[0]) and the bottom
         // of the sun is red (sunColors[sunColors.length - 1]
 
@@ -96,19 +115,25 @@ public class RetroSun extends PApplet {
          */
 
         // Set the fill color to the background color
-
+    	fill(31, 0, 48);
         // To draw each rectangle we need to find its x, y, width, height
         // *The y position can be any value within the sun:
-        //  float y = width / 2;
+    	
+        
         // *The height can be any value you choose:
-        //  float h = 40;
+         
         // *The x position can be the center of the sun's x position minus the radius:
-        //  float x = sunCenterX - sunRadius
+         float x = 400 - 500;
         // *The width can be 2 times the radius
-        //  float w = 2 * sunRadius
+   
         
         // Do you see a section missing from the sun like in the 3rd image?
-
+         rect(x,y,w,h);
+         rect(x,y+50,w,h);
+         rect(x,y+100,w,h);
+         rect(x,y+150,w,h);
+         rect(x,y+200,w,h);
+         
         
         /*
          * PART 4: Moving the missing sun sections
