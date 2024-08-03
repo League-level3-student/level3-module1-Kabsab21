@@ -45,7 +45,7 @@ public class _00_HashMapDemo {
          */
         System.out.println("\nChanging key 84565 to: Zany Zapper");
         studentRoster.put(84565, "Zany Zapper");
-        
+     
         /*
          * Iterating through all keys and values with a for-each loop
          */

@@ -17,6 +17,8 @@ public class RetroSun extends PApplet {
 	float y = 550;
 	float h = 40;
 	float w = 2 * 500;
+	float x = 400 - 500;
+	ArrayList<Rectangle> list = new ArrayList<Rectangle>();
 	// RGB colors
 	int[] sunColors = { color(212, 202, 11), color(214, 198, 30), color(211, 170, 26), color(216, 157, 51),
 			color(217, 124, 64), color(213, 104, 81), color(212, 51, 98), color(215, 29, 121), color(217, 11, 139),
@@ -34,6 +36,14 @@ public class RetroSun extends PApplet {
 	public void setup() {
 		// 2. Set bgColor as the background color
 		background(bgColor);
+		
+		for( int i = 0; i < 350; i+=50) {
+			
+			Rectangle recti = new Rectangle(x, y+i, w, map(y+i, 250, 550, 1, 40));
+			
+			list.add(recti);
+
+		}
 	}
 
 	@Override
@@ -111,7 +121,7 @@ public class RetroSun extends PApplet {
 		// *The height can be any value you choose:
 
 		// *The x position can be the center of the sun's x position minus the radius:
-		float x = 400 - 500;
+		
 		// *The width can be 2 times the radius
 
 		// Do you see a section missing from the sun like in the 3rd image?
@@ -120,9 +130,9 @@ public class RetroSun extends PApplet {
 	//		y = 550;
 			//h = h + 12.5f;
 	//000000	}
-		y = y - 1;
+		//y = y - 1;
 
-		h =  map(y, 250, 550, 1, 40);;
+		
 
 		/*
 		 * PART 4: Moving the missing sun sections
@@ -160,20 +170,18 @@ public class RetroSun extends PApplet {
 		 *
 		 * Using a list to manage moving multiple missing sun sections
 		 */
-		ArrayList<Rectangle> list = new ArrayList<Rectangle>();
+	
 //		Rectangle recty = new Rectangle(x, y, w, h);
 //		rect(recty.x, recty.y, recty.w, recty.h);
 
 	//	list.add(recty);
 		
-		for( int i = 0; i < 300; i+=50) {
 		
-			Rectangle recti = new Rectangle(x, y+i, w, map(y+i, 250, 550, 1, 40));
-			rect(recti.x, recti.y, recti.w, recti.h);
-			list.add(recti);
-
-		}
-		for( int i = 0; i < 5; i++) {
+		for( int i = 0; i < 6; i++) {
+			System.out.println("" + i + " " + list.get(i).y);
+			list.get(i).y -= 1;
+			list.get(i).h =  map(list.get(i).y , 250, 550, 1, 40);;
+			rect(list.get(i).x , list.get(i).y, list.get(i).w, list.get(i).h);
 			if(list.get(i).y < 250 ) {
 				list.get(i).y = 550;
 			}
