@@ -22,7 +22,26 @@ public class MeetingScheduler {
      * Assume both schedules are in the same time zones
      */
     public static Schedule getMutualAvailability(Schedule person1, Schedule person2) {
+    	
+        person1.printSchedule();
+        person2.printSchedule();
         
+     //   for( int i = 0; i < 7; i++){
+        	person1.getSchedule().get("Monday");
+        	for(int j = 0; j < person1.getSchedule().get("Monday").size(); j++) {
+        		
+        		for(int n = 0; n < person2.getSchedule().get("Monday").size(); n++) {
+        			if(person1.getSchedule().get("Monday").get(j) == (person2.getSchedule().get("Monday").get(n))){
+        			 
+        			 System.out.println(incommon);
+        			}
+            		
+            	}
+        		
+        	}
+        	
+   //     }
         return null;
+        
     }
 }

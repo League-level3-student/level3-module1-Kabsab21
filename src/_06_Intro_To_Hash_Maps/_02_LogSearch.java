@@ -49,6 +49,7 @@ public class _02_LogSearch implements ActionListener {
 	JButton button1 = new JButton();
 	JButton button2 = new JButton();
 	JButton button3 = new JButton();
+	JButton button4 = new JButton();
 	
 	public static void main(String[] args) {
 		 _02_LogSearch obj = new  _02_LogSearch();
@@ -61,13 +62,21 @@ public class _02_LogSearch implements ActionListener {
 		panel.add(button1);
 		panel.add(button2);
 		panel.add(button3);
+		panel.add(button4);
 		button1.addActionListener(this);
+		button2.addActionListener(this);
+		button3.addActionListener(this);
+		button4.addActionListener(this);
 		button1.setText("ADD ENTRY");
+		button2.setText("SEARCH BY ID");
+		button3.setText("VIEW LIST");
+		button4.setText("REMOVE ENTRY");
 		frame.pack();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		
 		// TODO Auto-generated method stub
 		JButton buttonclicked = (JButton ) arg0.getSource();
 		
@@ -77,5 +86,35 @@ public class _02_LogSearch implements ActionListener {
 		int input =	Integer.parseInt(ID);
 		hashmap.put(input, Name);
 		}
+		if( buttonclicked == button2) {
+			String ID =	JOptionPane.showInputDialog(null, "Please enter an ID number.");
+			int input =	Integer.parseInt(ID);
+		
+				if( hashmap.get(input) != null) {
+					JOptionPane.showMessageDialog(null, "Is the person you are looking for "+hashmap.get(input));
+						
+			   } else if(hashmap.get(input) == null){
+					JOptionPane.showMessageDialog(null, "there is no person with the ID number "+input+" listed.");
+				}
+		}
+		if( buttonclicked == button3) {
+			JOptionPane.showMessageDialog(null, hashmap);
+			
+		}
+		if( buttonclicked == button4) {
+			String ID =	JOptionPane.showInputDialog(null, "Please enter an ID number.");
+			int input =	Integer.parseInt(ID);
+		
+				if( hashmap.get(input) != null) {
+					JOptionPane.showMessageDialog(null, "The person you just removed was "+hashmap.get(input));
+					hashmap.remove(input);
+					
+			   } else if(hashmap.get(input) == null){
+					JOptionPane.showMessageDialog(null, "there is no person with the ID number "+input+" listed.");
+				}
+		}
+		
 	}
+	
+	
 }
