@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -97,10 +98,12 @@ public class CaliforniaWeather implements ActionListener {
 		}
 		
 		if(buttonPressed == button1) {
+			System.out.println("|-----NEW LINE----|");
 			condition  = JOptionPane.showInputDialog(null, "please enter a Weather Condition.");
-			for (WeatherData temp : weatherData.values()) {
-				if (condition.equals(temp.weatherSummary)) {
-					System.out.println(temp);
+			for (Entry<String, WeatherData> temp : weatherData.entrySet()) {
+				if (condition.equals(temp.getValue().weatherSummary)) {
+					
+					System.out.println(temp.getKey());
 				}
 			}
 		
@@ -108,8 +111,17 @@ public class CaliforniaWeather implements ActionListener {
 			}
 		
 		if(buttonPressed == button2) {
+			System.out.println("|-----NEW LINE----|");
 			lowtemp =	JOptionPane.showInputDialog(null, "please enter a lowest Temperature.");
-			lowtemp =	JOptionPane.showInputDialog(null, "please enter a highest Temperature.");
+			int low = Integer.parseInt(lowtemp);
+			hightemp =	JOptionPane.showInputDialog(null, "please enter a highest Temperature.");
+			int high = Integer.parseInt(hightemp);
+			for (Entry<String, WeatherData> temp : weatherData.entrySet()) {
+				if (temp.getValue().temperatureF < high && temp.getValue().temperatureF > low) {
+					System.out.println(temp.getKey());
+				}
 			}
+			}
+		
 	}
 }
