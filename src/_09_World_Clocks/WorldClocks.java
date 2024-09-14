@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import javax.swing.JButton;
@@ -44,7 +46,7 @@ public class WorldClocks implements ActionListener {
 	ArrayList<JTextArea> Textareas = new ArrayList();;
 	JFrame frame;
 	JPanel panel;
-	Hashmap<String, TimeZone> times = new 
+	HashMap<String, TimeZone> times = new HashMap();
 	// JTextArea textArea;
 	JButton add;
 	JButton remove;
@@ -52,13 +54,12 @@ public class WorldClocks implements ActionListener {
 	String dateStr;
 	String timeStr;
 	int clocksmade = -1;
-
+	JTextArea textArea = new JTextArea();
 	public WorldClocks() {
 		clockUtil = new ClockUtilities();
 
 		// The format for the city must be: city, country (all caps)
 
-		newClocks("Chicago, US", clocksmade);
 
 		System.out.println(dateStr);
 
@@ -78,10 +79,9 @@ public class WorldClocks implements ActionListener {
 		frame.add(panel);
 		panel.add(add);
 		panel.add(remove);
-		for (JTextArea in : Textareas) {
-			panel.add(in);
+		panel.add(textArea);
+		newClocks("Chicago, US", clocksmade);
 
-		}
 		// panel.add(textArea);
 		// textArea.setText(city + "\n" + dateStr);
 		frame.pack();
@@ -98,17 +98,22 @@ public class WorldClocks implements ActionListener {
 		clocksmade = clocksmade + 1;
 		city = cit;
 		timeZone = clockUtil.getTimeZoneFromCityName(cit);
-
-		Calendar calendar = Calendar.getInstance(timeZone);
-		String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-		String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-		dateStr = dayOfWeek + " " + month + " " + calendar.get(Calendar.DAY_OF_MONTH) + " "
-				+ calendar.get(Calendar.YEAR);
+		times.put( cit, timeZone);
+//		Calendar calendar = Calendar.getInstance(timeZone);
+//		String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+//		String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+//		dateStr = dayOfWeek + " " + month + " " + calendar.get(Calendar.DAY_OF_MONTH) + " "
+//				+ calendar.get(Calendar.YEAR);
 		JTextArea i = new JTextArea();
-		i.setText(cit + "\n" + dateStr);
-		;
+//		i.setText(cit + "\n" + dateStr);
+
 		Textareas.add(clocks, i);
-		System.out.println(Textareas.get(clocks));
+
+//		System.out.println(Textareas.get(clocks));
+		for (JTextArea in : Textareas) {
+		//	panel.add(in);
+
+		}
 
 	}
 
@@ -125,24 +130,40 @@ public class WorldClocks implements ActionListener {
 
 			}
 			if (buttonpressed == remove) {
-				System.out.println("???");
+				
+				String ans = JOptionPane.showInputDialog(null, "Please State the city you would like to remove ( City, Country ).");
+				times.remove(ans);
 			}
 		} else {
-			Calendar c = Calendar.getInstance(timeZone);
-			String militaryTime = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":"
-					+ c.get(Calendar.SECOND);
-			String twelveHourTime = " [" + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":"
-					+ c.get(Calendar.SECOND) + "]";
-			timeStr = militaryTime + twelveHourTime;
+			textArea.setText("");
+			for( Entry<String, TimeZone> e : times.entrySet() ) {
 
-			System.out.println(timeStr);
-			for (JTextArea in : Textareas) {
-				in.setText(city + "\n" + dateStr + "\n" + timeStr);
+				Calendar calendar = Calendar.getInstance(e.getValue());
+				String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+				String dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+				dateStr = dayOfWeek + " " + month + " " + calendar.get(Calendar.DAY_OF_MONTH) + " "
+						+ calendar.get(Calendar.YEAR);
+
+				String militaryTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":"
+						+ calendar.get(Calendar.SECOND);
+				String twelveHourTime = " [" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":"
+						+ calendar.get(Calendar.SECOND) + "]";
+				timeStr = militaryTime + twelveHourTime;
+
+
+				System.out.println(timeStr);
+//				for (JTextArea in : Textareas) {
+//					in.setText(e.getKey() + "\n" + dateStr + "\n" + timeStr);
+//
+//				}
+				textArea.setText(  textArea.getText() + "\n\n" +  e.getKey() + "\n" + dateStr + "\n" + timeStr    );
+				
+
+				frame.pack();
+
 			}
-
-			frame.pack();
-
 		}
+
 	}
 
 }
